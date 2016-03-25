@@ -1,0 +1,12 @@
+{
+    "name": "hots-test",
+    "version": "0.0.1",
+    "description": "test",
+    "main": "server.js",
+    "author": "A. Giraud",
+    "dependencies": {
+        "express": "latest",
+        "cheerio": "latest",
+        "ejs": "latest"
+    }
+}

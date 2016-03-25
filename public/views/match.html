@@ -1,0 +1,56 @@
+<div class="container">
+    <div ng-show="!matchReady" class="loader">
+        <h2><i class="fa fa-spinner fa-pulse"></i></h2>
+    </div>
+
+    <div class="alert alert-danger" role="alert" ng-show="error"><strong>Error:</strong> {{ error }}</div>
+
+    <h3 class="text-center">{{ map }}</h3>
+
+    <div class="row">
+        <div class="col-xs-6" ng-repeat="team in teams">
+            <ul class="list-group">
+                <li class="list-group-item" ng-class="($index === 0) ? 'list-group-item-info' : 'list-group-item-danger'">
+                    <strong>{{ $index === 0 ? "Blue" : "Red" }} team (MMR: {{ team.mmr }})</strong>
+                </li>
+                <li class="list-group-item" ng-repeat="hero in team.heroes">{{ hero }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-show="map">
+        <div class="text-center">
+            <h4>Who won the match?</h4>
+            <a class="btn btn-default" role="button" ng-click="result >= 0 || vote(0)" ng-disabled="result >= 0">Blue</a>
+            <a class="btn btn-default" role="button" ng-click="result >= 0 || vote(1)" ng-disabled="result >= 0">Red</a>
+        </div>
+
+        <br />
+
+        <div class="center-block counter-container">
+            <div class="counter-number">{{ counter / 10 | number : 0 }}</div>
+            <div round-progress 
+                 max="maxCounter" 
+                 current="counter" 
+                 color="#2196f3" 
+                 bgcolor="#dddddd" 
+                 radius="50" 
+                 stroke="10" 
+                 semi="false" 
+                 rounded="false" 
+                 clockwise="true" 
+                 responsive="true" 
+                 duration="100" 
+                 animation="linearEase">
+            </div>
+        </div>
+
+        <br />
+
+        <div ng-show="result === 0" class="text-center alert alert-danger">Wrong</div>
+        <div ng-show="result === 1" class="text-center alert alert-success">Correct</div>
+        <div ng-show="result === 2" class="text-center alert alert-warning">Time's up!</div>
+
+        <p ng-show="successRate >= 0">Success Rate: {{ successRate * 100 | number:0 }}% ({{ round }} matches voted)</p>
+    </div>
+</div>
